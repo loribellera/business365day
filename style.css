@@ -113,22 +113,19 @@ body.light-mode .tech-navbar.menu-open { background: rgba(255, 255, 255, .82); }
 .footer-brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 0;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.08rem;
   font-weight: 700;
   color: var(--text);
 }
 
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  box-shadow: 0 12px 28px rgba(109, 93, 252, .35);
+.navbar-brand img,
+.footer-brand img {
+  display: block;
+  width: clamp(180px, 20vw, 260px);
+  height: auto;
+  object-fit: contain;
 }
 
 .nav-link {
