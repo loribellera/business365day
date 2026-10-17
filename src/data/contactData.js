@@ -1,6 +1,6 @@
 const contactDetails = [
-  { id: "email", value: "business365admins@gmail.com", href: "mailto:business365admins@gmail.com", icon: "mail" },
-  { id: "phone", value: "+234 800 355 0365", href: "tel:+2348003550365", icon: "phone" },
+  { id: "email", value: "customercare@business365day.com", href: "mailto:customercare@business365day.com", icon: "mail" },
+  { id: "phone", value: "+229 50585332", href: "tel:+22950585332", icon: "phone" },
   { id: "studio", href: null, icon: "map" }
 ];
 
@@ -26,6 +26,6 @@ const budgetOptionValues = [
   "To be discussed"
 ];
 
-const contactButtons = { whatsappHref: "https://wa.me/2348003550365" };
+const contactButtons = { whatsappHref: "https://wa.me/message/CHA4ZH7OIYDSP1" };
 
 export { budgetOptionValues, contactButtons, contactDetails, serviceOptionValues };

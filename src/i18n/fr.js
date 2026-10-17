@@ -296,9 +296,16 @@ export default {
         label: "Budget",
         options: ["Choisissez un budget", "Moins de 500 $", "500 $–2 000 $", "2 000 $–5 000 $", "5 000 $–10 000 $", "10 000 $ et plus", "À discuter"]
       },
+      preferredDate: "Date souhaitée (facultatif)",
+      preferredTime: "Heure souhaitée (facultatif)",
       projectDetails: { label: "Détails du projet", placeholder: "Parlez-nous de vos objectifs…" },
       send: "Envoyer le message",
       whatsapp: "Discuter sur WhatsApp",
+      privacy: "Vos coordonnées servent uniquement à répondre à votre demande.",
+      sending: "Envoi en cours…",
+      successMessage: "Merci pour votre message. Nous vous répondrons bientôt.",
+      errorMessage: "L’envoi a échoué. Réessayez ou contactez-nous sur WhatsApp.",
+      validationMessage: "Veuillez remplir tous les champs obligatoires et valider le contrôle de sécurité.",
       statusMessage: "Message prêt. Connectez ce formulaire à votre serveur ou service de messagerie pour recevoir les demandes."
     },
     map: {

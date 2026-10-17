@@ -135,16 +135,6 @@ export default function initPageEffects(t) {
     });
   });
 
-  const contactForm = document.querySelector(".contact-form");
-  if (contactForm) {
-    addListener(contactForm, "submit", (event) => {
-      event.preventDefault();
-      const status = event.currentTarget.querySelector(".form-status");
-      if (status) status.textContent = t("contact.form.statusMessage");
-      event.currentTarget.reset();
-    });
-  }
-
   return () => {
     observer.disconnect();
     listeners.forEach((removeListener) => removeListener());

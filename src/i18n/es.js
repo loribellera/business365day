@@ -296,9 +296,16 @@ export default {
         label: "Presupuesto",
         options: ["Selecciona un presupuesto", "Menos de $500", "$500-$2,000", "$2,000-$5,000", "$5,000-$10,000", "$10,000 o más", "A conversar"]
       },
+      preferredDate: "Fecha preferida (opcional)",
+      preferredTime: "Hora preferida (opcional)",
       projectDetails: { label: "Detalles del proyecto", placeholder: "Cuéntanos tus objetivos…" },
       send: "Enviar mensaje",
       whatsapp: "Escríbenos por WhatsApp",
+      privacy: "Tus datos solo se utilizan para responder a tu solicitud.",
+      sending: "Enviando…",
+      successMessage: "Gracias por escribirnos. Te responderemos pronto.",
+      errorMessage: "No pudimos enviar tu solicitud. Inténtalo de nuevo o contáctanos por WhatsApp.",
+      validationMessage: "Completa todos los campos obligatorios y la verificación de seguridad.",
       statusMessage: "Mensaje listo. Conecta este formulario a tu servidor o servicio de correo para recibir los envíos."
     },
     map: {
