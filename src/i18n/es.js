@@ -75,7 +75,7 @@ export default {
       performance: "% de rendimiento",
       support: "Días de soporte",
       security: "Seguridad desde el diseño",
-      mobile: "Productos preparados para móviles"
+      smartHome: "Integración de hogar inteligente"
     },
     services: {
       eyebrow: "Lo que hacemos",
@@ -84,7 +84,7 @@ export default {
       cards: [
         { title: "Desarrollo web", description: "Sitios empresariales adaptables, páginas de aterrizaje, paneles y tiendas en línea diseñados para generar confianza." },
         { title: "Aplicaciones móviles", description: "Conceptos, prototipos y experiencias listas para producción en Android e iOS." },
-        { title: "Integración con smartphones", description: "Controla tus sistemas conectados desde el smartphone, con aplicaciones, alertas y acceso remoto para tener todo bajo control desde cualquier lugar." },
+        { title: "Integración de hogar inteligente", description: "Controla tus sistemas conectados desde el hogar inteligente, con aplicaciones, alertas y acceso remoto para tener todo bajo control desde cualquier lugar." },
         { title: "Ciberseguridad", description: "Refuerzo web, copias de seguridad, supervisión, SSL, limpieza y prevención para activos digitales importantes." },
         { title: "Cámaras con IA", description: "Videovigilancia con cámaras de IA, detección inteligente, alertas en tiempo real y visualización remota para hogares, oficinas y espacios comerciales." }
       ]

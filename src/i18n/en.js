@@ -13,7 +13,7 @@ export default {
     navigationToggle: "Toggle navigation"
   },
   footer: {
-    description: "Premium websites, apps, Smart Phones, AI Cameras, cybersecurity, and tech gadget solutions for ambitious businesses.",
+    description: "Premium websites, apps, Smart Homes, AI Cameras, cybersecurity, and tech gadget solutions for ambitious businesses.",
     pagesHeading: "Pages",
     servicesHeading: "Services",
     websiteDevelopment: "Website Development",
@@ -75,7 +75,7 @@ export default {
       performance: "% Performance",
       support: "Day Support",
       security: "Security first builds",
-      mobile: "Mobile ready products"
+      smartHome: "Smart Home Integration"
     },
     services: {
       eyebrow: "What we do",
@@ -84,7 +84,7 @@ export default {
       cards: [
         { title: "Website Development", description: "Responsive business websites, landing pages, dashboards, and e-commerce interfaces built for trust." },
         { title: "Mobile Apps", description: "App concepts, prototypes, and production ready experiences for Android and iOS audiences." },
-        { title: "Smartphone Integration", description: "Smartphone control for your connected systems, with apps, alerts and remote access that keep you in command from anywhere." },
+        { title: "Smarthome Integration", description: "Smart home control for your connected systems, with apps, alerts and remote access that keep you in command from anywhere." },
         { title: "Cybersecurity", description: "Website hardening, backups, monitoring, SSL, cleanup, and prevention for high-stakes online assets." },
         { title: "AI Cameras", description: "AI security camera surveillance with smart detection, real-time alerts and remote viewing for homes, offices and commercial properties." }
       ]
