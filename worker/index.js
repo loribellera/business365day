@@ -61,6 +61,8 @@ function originIsAllowed(request) {
     const origin = new URL(originHeader);
     const requestOrigin = new URL(request.url).origin;
     if (origin.origin === requestOrigin) return true;
+    if (origin.protocol === "https:" && ["business365day.com", "www.business365day.com"].includes(origin.hostname)) return true;
+    if (origin.protocol === "https:" && /^business365day\.[a-z0-9-]+\.workers\.dev$/i.test(origin.hostname)) return true;
     return origin.protocol === "http:" && ["localhost", "127.0.0.1"].includes(origin.hostname);
   } catch {
     return false;
@@ -118,19 +120,34 @@ async function runTimedStep(step, operation, timeoutMs, timeoutResult = (errorTy
 }
 
 async function verifyTurnstile(token, secret, signal) {
-  if (!secret) return { ok: false, status: "not_configured", httpStatus: null };
+  if (!secret) return { ok: false, status: "not_configured", httpStatus: null, errorCodes: ["missing-input-secret"], hostname: "" };
   const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     headers: { "content-type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({ secret, response: token }),
     signal
   });
-  if (!response.ok) return { ok: false, status: `http_${response.status}`, httpStatus: response.status };
-  const result = await response.json();
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    result = null;
+  }
+  const errorCodes = Array.isArray(result?.["error-codes"])
+    ? result["error-codes"].filter((code) => typeof code === "string" && /^[a-z0-9-]{1,64}$/i.test(code))
+    : [];
+  const reportedHostname = typeof result?.hostname === "string" ? result.hostname : "";
+  const hostname = /^[a-z0-9.-]{1,253}$/i.test(reportedHostname) ? reportedHostname.toLowerCase() : "";
+  console.info(`[contact] turnstile_response http_status=${response.status} error_codes=${JSON.stringify(errorCodes)} hostname=${hostname || "none"}`);
+  if (!response.ok) {
+    return { ok: false, status: `http_${response.status}`, httpStatus: response.status, errorCodes, hostname };
+  }
   return {
-    ok: result.success === true,
-    status: result.success === true ? "ok" : "turnstile_failed",
-    httpStatus: response.status
+    ok: result?.success === true,
+    status: result?.success === true ? "ok" : "turnstile_failed",
+    httpStatus: response.status,
+    errorCodes,
+    hostname
   };
 }
 
@@ -271,9 +288,13 @@ async function handleContact(request, env) {
   );
   if (!turnstile.ok) {
     const debug = env.DEBUG_CONTACT?.toLowerCase() === "true";
+    const reason = turnstile.errorCodes?.length
+      ? turnstile.errorCodes.join(",").slice(0, 160)
+      : turnstile.status || "verification_failed";
     return jsonResponse({
       ok: false,
       error: "turnstile_failed",
+      ...(debug ? { reason } : {}),
       ...(debug ? { channels: { resend: "not_attempted", telegram: "not_attempted" } } : {})
     }, 403);
   }
