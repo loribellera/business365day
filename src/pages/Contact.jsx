@@ -2,13 +2,111 @@ import usePageMeta from "../usePageMeta.js";
 import { ChevronDown, Mail, MapPin, MapPinned, Phone, Send } from "lucide-react";
 import { budgetOptionValues, contactButtons, contactDetails, serviceOptionValues } from "../data/contactData.js";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
+import { useRef, useState } from "react";
+import TurnstileWidget from "../components/TurnstileWidget.jsx";
 
 const contactIcons = { mail: Mail, phone: Phone, map: MapPin };
 
 export default function Contact() {
   const { t } = useLanguage();
   const content = t("contact");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [sending, setSending] = useState(false);
+  const [formStatus, setFormStatus] = useState("");
+  const turnstileRef = useRef(null);
   usePageMeta("contact.meta.title", "contact.meta.description");
+
+  const today = new Date();
+  today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  const minPreferredDate = today.toISOString().slice(0, 10);
+
+  async function handleContactSubmit(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) {
+      if (!turnstileToken) {
+        setFormStatus(content.form.turnstileMessage);
+        turnstileRef.current?.reset();
+        setTurnstileToken("");
+      } else {
+        setFormStatus(content.form.validationMessage);
+      }
+      return;
+    }
+    if (!turnstileToken) {
+      setFormStatus(content.form.turnstileMessage);
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
+      return;
+    }
+
+    const formData = new FormData(form);
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 20000);
+    setSending(true);
+    setFormStatus(content.form.sending);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          service: formData.get("service"),
+          budget: formData.get("budget"),
+          details: formData.get("message"),
+          preferredDate: formData.get("preferredDate"),
+          preferredTime: formData.get("preferredTime"),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          lang: document.documentElement.lang,
+          turnstileToken,
+          website: formData.get("website")
+        })
+      });
+      const result = await response.json().catch(() => null);
+      if (!response.ok || !result?.ok) throw new Error(result?.error || "send_failed");
+
+      form.reset();
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
+      setFormStatus(content.form.successMessage);
+    } catch {
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
+      setFormStatus(content.form.errorMessage);
+    } finally {
+      window.clearTimeout(timeoutId);
+      setSending(false);
+    }
+  }
+
+  function handleWhatsAppClick(event) {
+    event.preventDefault();
+    const form = document.getElementById("contactForm");
+    const formData = new FormData(form);
+    const template = content.form.whatsappTemplate;
+    const read = (name) => String(formData.get(name) || "").trim();
+    const selectedLabel = (name) => form.elements[name]?.selectedOptions?.[0]?.textContent.trim() || "";
+    const budget = read("budget");
+    const values = [
+      [template.name, read("name")],
+      [template.email, read("email")],
+      [template.service, read("service") ? selectedLabel("service") : ""],
+      [template.budget, budget === "To be discussed" ? "" : selectedLabel("budget")],
+      [template.preferredDate, read("preferredDate")],
+      [template.preferredTime, read("preferredTime")],
+      [template.details, read("message").slice(0, 800)]
+    ];
+    const hasEnteredDetails = values.some(([, value]) => value);
+    const message = hasEnteredDetails
+      ? [template.greeting, ...values.filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`)].join("\n")
+      : template.greeting;
+    const whatsappNumber = contactDetails.find((detail) => detail.id === "phone").value.replace(/\D/g, "");
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener");
+  }
 
   return (
     <main>
@@ -47,19 +145,24 @@ export default function Contact() {
             </div>
 
             <div className="contact-form-side">
-              <form id="contactForm" className="contact-form">
+              <form id="contactForm" className="contact-form" onSubmit={handleContactSubmit}>
                 <div className="contact-form-grid">
-                  <div className="contact-field"><label htmlFor="name">{content.form.fullName.label}</label><input id="name" type="text" className="contact-control" placeholder={content.form.fullName.placeholder} required /></div>
-                  <div className="contact-field"><label htmlFor="email">{content.form.email.label}</label><input id="email" type="email" className="contact-control" placeholder={content.form.email.placeholder} required /></div>
-                  <div className="contact-field"><label htmlFor="service">{content.form.service.label}</label><div className="select-wrap"><select id="service" className="contact-control" defaultValue=""><option value="">{content.form.service.placeholder}</option>{serviceOptionValues.map((value, index) => <option value={value} key={value}>{content.form.service.options[index]}</option>)}</select><ChevronDown size={18} strokeWidth={2} aria-hidden="true" /></div></div>
-                  <div className="contact-field"><label htmlFor="budget">{content.form.budget.label}</label><div className="select-wrap"><select id="budget" className="contact-control" defaultValue={budgetOptionValues[budgetOptionValues.length - 1]}>{budgetOptionValues.map((value, index) => <option value={value} key={value}>{content.form.budget.options[index]}</option>)}</select><ChevronDown size={18} strokeWidth={2} aria-hidden="true" /></div></div>
-                  <div className="contact-field contact-field-full"><label htmlFor="message">{content.form.projectDetails.label}</label><textarea id="message" className="contact-control" rows="6" placeholder={content.form.projectDetails.placeholder} required></textarea></div>
+                  <div className="contact-field"><label htmlFor="name">{content.form.fullName.label}</label><input id="name" name="name" type="text" className="contact-control" placeholder={content.form.fullName.placeholder} required /></div>
+                  <div className="contact-field"><label htmlFor="email">{content.form.email.label}</label><input id="email" name="email" type="email" className="contact-control" placeholder={content.form.email.placeholder} required /></div>
+                  <div className="contact-field"><label htmlFor="service">{content.form.service.label}</label><div className="select-wrap"><select id="service" name="service" className="contact-control" defaultValue="" required><option value="">{content.form.service.placeholder}</option>{serviceOptionValues.map((value, index) => <option value={value} key={value}>{content.form.service.options[index]}</option>)}</select><ChevronDown size={18} strokeWidth={2} aria-hidden="true" /></div></div>
+                  <div className="contact-field"><label htmlFor="budget">{content.form.budget.label}</label><div className="select-wrap"><select id="budget" name="budget" className="contact-control" defaultValue={budgetOptionValues[budgetOptionValues.length - 1]} required>{budgetOptionValues.map((value, index) => <option value={value} key={value}>{content.form.budget.options[index]}</option>)}</select><ChevronDown size={18} strokeWidth={2} aria-hidden="true" /></div></div>
+                  <div className="contact-field"><label htmlFor="preferredDate">{content.form.preferredDate}</label><input id="preferredDate" name="preferredDate" type="date" min={minPreferredDate} className="contact-control" /></div>
+                  <div className="contact-field"><label htmlFor="preferredTime">{content.form.preferredTime}</label><input id="preferredTime" name="preferredTime" type="time" className="contact-control" /></div>
+                  <div className="contact-field contact-field-full"><label htmlFor="message">{content.form.projectDetails.label}</label><textarea id="message" name="message" className="contact-control" rows="6" placeholder={content.form.projectDetails.placeholder} required></textarea></div>
+                  <input className="contact-honeypot" type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+                  <div className="contact-field-full"><TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} onError={() => setTurnstileToken("")} /></div>
                   <div className="contact-form-actions contact-field-full">
-                    <button className="btn btn-primary btn-lg magnetic-btn" type="submit">{content.form.send}<Send size={18} strokeWidth={2} aria-hidden="true" /></button>
-                    <a className="btn btn-whatsapp btn-lg" href={contactButtons.whatsappHref} target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp me-2"></i>{content.form.whatsapp}</a>
+                    <button className="btn btn-primary btn-lg magnetic-btn" type="submit" disabled={sending}>{sending ? content.form.sending : content.form.send}<Send size={18} strokeWidth={2} aria-hidden="true" /></button>
+                    <a className="btn btn-whatsapp btn-lg" href={contactButtons.whatsappHref} target="_blank" rel="noopener" onClick={handleWhatsAppClick}><i className="fa-brands fa-whatsapp me-2"></i>{content.form.whatsapp}</a>
                   </div>
+                  <p className="contact-privacy contact-field-full">{content.form.privacy}</p>
                 </div>
-                <p className="form-status" aria-live="polite"></p>
+                <p className="form-status" aria-live="polite">{formStatus}</p>
               </form>
             </div>
           </div>

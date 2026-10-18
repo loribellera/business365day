@@ -965,6 +965,26 @@ h1, h2, h3 {
   }
 }
 
+/* Contact form scheduling, verification and privacy */
+.contact-honeypot {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+}
+
+.contact-turnstile {
+  min-height: 65px;
+}
+
+.contact-privacy {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+}
+
 /* Home five-service card layout */
 .home-service-cards {
   justify-content: center;

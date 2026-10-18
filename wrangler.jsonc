@@ -1,9 +1,17 @@
 {
   "name": "business365day",
-  "compatibility_date": "2026-10-01",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-16",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application"
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "CONTACT_TO_EMAIL": "customercare@business365day.com",
+    "CONTACT_FROM_EMAIL": "Business365Days <customercare@business365day.com>",
+    "SEND_CONFIRMATION": "true"
   },
   "previews": {}
 }
