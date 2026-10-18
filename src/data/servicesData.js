@@ -6,14 +6,14 @@ import {
   House,
   ArrowUpRight,
   ShieldCheck,
-  Smartphone
+  HouseWifi
 } from "lucide-react";
 
 const servicesData = [
   { icon: CodeXml, delay: null },
   { icon: Globe, delay: "100" },
   { icon: BrainCircuit, delay: "200" },
-  { icon: Smartphone, delay: null },
+  { icon: HouseWifi, delay: null },
   { icon: ShieldCheck, delay: "100" },
   { icon: House, delay: "200" }
 ];

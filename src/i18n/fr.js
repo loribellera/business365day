@@ -75,7 +75,7 @@ export default {
       performance: "% de performance",
       support: "jours d’assistance",
       security: "Sécurité intégrée dès la conception",
-      mobile: "Produits adaptés au mobile"
+      smartHome: "Intégration domotique"
     },
     services: {
       eyebrow: "Nos services",
@@ -84,7 +84,7 @@ export default {
       cards: [
         { title: "Création de sites web", description: "Des sites professionnels, pages d’atterrissage, tableaux de bord et boutiques en ligne adaptatifs, conçus pour inspirer confiance." },
         { title: "Applications mobiles", description: "Des concepts, prototypes et applications prêtes pour la production sur Android et iOS." },
-        { title: "Intégration des smartphones", description: "Pilotez vos systèmes connectés depuis votre smartphone grâce aux applications, alertes et accès à distance, où que vous soyez." },
+        { title: "Intégration domotique", description: "Pilotez vos systèmes connectés grâce aux applications, aux alertes et à l’accès à distance, où que vous soyez." },
         { title: "Cybersécurité", description: "Renforcement, sauvegardes, surveillance, certificats SSL et prévention pour les sites web stratégiques." },
         { title: "Caméras IA", description: "Vidéosurveillance par caméras IA avec détection intelligente, alertes en temps réel et consultation à distance pour les maisons, bureaux et locaux commerciaux." }
       ]

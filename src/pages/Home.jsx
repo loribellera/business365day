@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight, Cctv, Check, CodeXml, ShieldCheck, Smartphone, SmartphoneNfc } from "lucide-react";
+import { ArrowUpRight, Cctv, Check, CodeXml, HouseWifi, ShieldCheck, Smartphone } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import usePageMeta from "../usePageMeta.js";
 
-const homeServiceIcons = [CodeXml, Smartphone, SmartphoneNfc, ShieldCheck, Cctv];
+const homeServiceIcons = [CodeXml, Smartphone, HouseWifi, ShieldCheck, Cctv];
 
 export default function Home() {
   const carouselRef = useRef(null);
@@ -64,8 +64,8 @@ export default function Home() {
                     <span>{home.device.security}</span>
                   </div>
                   <div className="glass-panel small-panel accent-panel">
-                    <i className="fa-solid fa-mobile-screen-button"></i>
-                    <span>{home.device.mobile}</span>
+                    <HouseWifi size={20} strokeWidth={2} aria-hidden="true" />
+                    <span>{home.device.smartHome}</span>
                   </div>
                 </div>
               </div>
