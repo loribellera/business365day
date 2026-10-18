@@ -301,11 +301,22 @@ export default {
       projectDetails: { label: "Project details", placeholder: "Tell us about your goals…" },
       send: "Send Message",
       whatsapp: "Chat on WhatsApp",
+      whatsappTemplate: {
+        greeting: "Hello, I’d like to discuss a project.",
+        name: "Name",
+        email: "Email",
+        service: "Service",
+        budget: "Budget",
+        preferredDate: "Preferred date",
+        preferredTime: "Preferred time",
+        details: "Project details"
+      },
       privacy: "Your details are used only to reply to your request.",
       sending: "Sending…",
       successMessage: "Thanks for contacting us. We’ll reply soon.",
       errorMessage: "We couldn’t send your request. Please try again or contact us on WhatsApp.",
       validationMessage: "Please complete all required fields and the security check.",
+      turnstileMessage: "Please complete the security check before sending your message.",
       statusMessage: "Message ready. Connect this form to your backend or email service to receive submissions."
     },
     map: {

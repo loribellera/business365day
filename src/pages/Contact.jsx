@@ -23,12 +23,26 @@ export default function Contact() {
   async function handleContactSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
-    if (!form.reportValidity() || !turnstileToken) {
-      setFormStatus(content.form.validationMessage);
+    if (!form.reportValidity()) {
+      if (!turnstileToken) {
+        setFormStatus(content.form.turnstileMessage);
+        turnstileRef.current?.reset();
+        setTurnstileToken("");
+      } else {
+        setFormStatus(content.form.validationMessage);
+      }
+      return;
+    }
+    if (!turnstileToken) {
+      setFormStatus(content.form.turnstileMessage);
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
       return;
     }
 
     const formData = new FormData(form);
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 20000);
     setSending(true);
     setFormStatus(content.form.sending);
 
@@ -36,6 +50,7 @@ export default function Contact() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "content-type": "application/json" },
+        signal: controller.signal,
         body: JSON.stringify({
           name: formData.get("name"),
           email: formData.get("email"),
@@ -62,8 +77,35 @@ export default function Contact() {
       setTurnstileToken("");
       setFormStatus(content.form.errorMessage);
     } finally {
+      window.clearTimeout(timeoutId);
       setSending(false);
     }
+  }
+
+  function handleWhatsAppClick(event) {
+    event.preventDefault();
+    const form = document.getElementById("contactForm");
+    const formData = new FormData(form);
+    const template = content.form.whatsappTemplate;
+    const read = (name) => String(formData.get(name) || "").trim();
+    const selectedLabel = (name) => form.elements[name]?.selectedOptions?.[0]?.textContent.trim() || "";
+    const budget = read("budget");
+    const values = [
+      [template.name, read("name")],
+      [template.email, read("email")],
+      [template.service, read("service") ? selectedLabel("service") : ""],
+      [template.budget, budget === "To be discussed" ? "" : selectedLabel("budget")],
+      [template.preferredDate, read("preferredDate")],
+      [template.preferredTime, read("preferredTime")],
+      [template.details, read("message").slice(0, 800)]
+    ];
+    const hasEnteredDetails = values.some(([, value]) => value);
+    const message = hasEnteredDetails
+      ? [template.greeting, ...values.filter(([, value]) => value).map(([label, value]) => `${label}: ${value}`)].join("\n")
+      : template.greeting;
+    const whatsappNumber = contactDetails.find((detail) => detail.id === "phone").value.replace(/\D/g, "");
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener");
   }
 
   return (
@@ -116,7 +158,7 @@ export default function Contact() {
                   <div className="contact-field-full"><TurnstileWidget ref={turnstileRef} onToken={setTurnstileToken} onError={() => setTurnstileToken("")} /></div>
                   <div className="contact-form-actions contact-field-full">
                     <button className="btn btn-primary btn-lg magnetic-btn" type="submit" disabled={sending}>{sending ? content.form.sending : content.form.send}<Send size={18} strokeWidth={2} aria-hidden="true" /></button>
-                    <a className="btn btn-whatsapp btn-lg" href={contactButtons.whatsappHref} target="_blank" rel="noopener"><i className="fa-brands fa-whatsapp me-2"></i>{content.form.whatsapp}</a>
+                    <a className="btn btn-whatsapp btn-lg" href={contactButtons.whatsappHref} target="_blank" rel="noopener" onClick={handleWhatsAppClick}><i className="fa-brands fa-whatsapp me-2"></i>{content.form.whatsapp}</a>
                   </div>
                   <p className="contact-privacy contact-field-full">{content.form.privacy}</p>
                 </div>

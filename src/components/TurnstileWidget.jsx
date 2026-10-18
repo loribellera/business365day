@@ -9,6 +9,10 @@ function loadTurnstileScript() {
   if (turnstileScriptPromise) return turnstileScriptPromise;
 
   turnstileScriptPromise = new Promise((resolve, reject) => {
+    const timeoutId = window.setTimeout(() => {
+      turnstileScriptPromise = null;
+      reject(new Error("Turnstile script timed out"));
+    }, 10000);
     let script = document.querySelector('script[src^="https://challenges.cloudflare.com/turnstile/v0/api.js"]');
     if (!script) {
       script = document.createElement("script");
@@ -17,8 +21,16 @@ function loadTurnstileScript() {
       script.defer = true;
       document.head.appendChild(script);
     }
-    script.addEventListener("load", () => resolve(window.turnstile), { once: true });
+    script.addEventListener("load", () => {
+      window.clearTimeout(timeoutId);
+      if (window.turnstile?.render) resolve(window.turnstile);
+      else {
+        turnstileScriptPromise = null;
+        reject(new Error("Turnstile did not initialize"));
+      }
+    }, { once: true });
     script.addEventListener("error", () => {
+      window.clearTimeout(timeoutId);
       turnstileScriptPromise = null;
       reject(new Error("Turnstile script failed to load"));
     }, { once: true });
