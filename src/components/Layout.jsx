@@ -60,10 +60,15 @@ function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", lightMode ? "#F4F4F4" : "#242E3D");
+  }, [lightMode]);
+
   function toggleTheme() {
     document.body.classList.toggle("light-mode");
     const nextTheme = document.body.classList.contains("light-mode") ? "light" : "dark";
     localStorage.setItem("b355-theme", nextTheme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", nextTheme === "light" ? "#F4F4F4" : "#242E3D");
     setLightMode(nextTheme === "light");
   }
 
