@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Business365Days builds premium websites, mobile apps, brand systems, website security solutions, and tech gadget experiences for ambitious businesses.">
   <meta name="keywords" content="Business365Days, website development, mobile app development, branding, cybersecurity, tech gadgets">
+  <meta name="theme-color" content="#242E3D">
   <title>Business365Days | Premium Digital Technology Company</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +16,7 @@
   <link rel="icon" type="image/png" href="/assets/img/logo-white.png">
 </head>
 <body>
-  <script>try{if(localStorage.getItem("b355-theme")==="light")document.body.classList.add("light-mode")}catch(e){}</script>
+  <script>try{if(localStorage.getItem("b355-theme")==="light"){document.body.classList.add("light-mode");document.querySelector('meta[name="theme-color"]')?.setAttribute("content","#F4F4F4")}}catch(e){}</script>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
