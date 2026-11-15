@@ -9,7 +9,7 @@ const serviceOptionValues = [
   "AI and automation",
   "Cybersecurity / cloud",
   "Mobile application",
-  "Smart home automation",
+  "Smart Housing",
   "AI camera surveillance",
   "Fingerprint / face detection access",
   "Digital consulting",
