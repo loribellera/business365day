@@ -1,13 +1,15 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Cctv, Check, CodeXml, HouseWifi, ShieldCheck, Smartphone } from "lucide-react";
 import { useLanguage } from "../i18n/LanguageContext.jsx";
 import usePageMeta from "../usePageMeta.js";
+import Sectors from "../components/Sectors/Sectors.jsx";
 
 const homeServiceIcons = [CodeXml, Smartphone, HouseWifi, ShieldCheck, Cctv];
 
 export default function Home() {
   const carouselRef = useRef(null);
+  const location = useLocation();
   const { t } = useLanguage();
   const home = t("home");
 
@@ -18,14 +20,26 @@ export default function Home() {
     return () => carousel?.dispose();
   }, []);
 
+  useEffect(() => {
+    if (!location.hash) return undefined;
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return undefined;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const frame = window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash]);
+
   return (
     <main>
+      <Sectors theme="dark" topOffset="120px" />
       <section className="hero-section min-vh-100 d-flex align-items-center overflow-hidden">
         <div className="hero-glow hero-glow-one"></div>
         <div className="hero-glow hero-glow-two"></div>
         <div className="container position-relative">
           <div className="row align-items-center g-5">
-            <div className="col-lg-6" data-aos="fade-up">
+            <div className="col-lg-8" data-aos="fade-up">
               <span className="eyebrow">{home.hero.eyebrow}</span>
               <h1 className="display-3 fw-black mt-3">{home.hero.heading} <span className="gradient-text typed-text" data-words={home.hero.words.join(",")}>{home.hero.words[0]}</span></h1>
               <p className="hero-copy mt-4">{home.hero.description}</p>
@@ -40,34 +54,6 @@ export default function Home() {
                     <span>{text}</span>
                   </div>
                 ))}
-              </div>
-            </div>
-            <div className="col-lg-6" data-aos="zoom-in" data-aos-delay="150">
-              <div className="hero-device parallax-card">
-                <div className="device-toolbar">
-                  <span></span><span></span><span></span>
-                  <small>{home.device.studioLabel}</small>
-                </div>
-                <div className="device-grid">
-                  <div className="glass-panel large-panel">
-                    <span className="mini-label">{home.device.miniLabel}</span>
-                    <h2>{home.device.heading}</h2>
-                    <p>{home.device.description}</p>
-                    <div className="metric-row">
-                      <div><strong className="counter" data-target="98">0</strong><span>{home.device.performance}</span></div>
-                      <div><strong className="counter" data-target="365">0</strong><span>{home.device.support}</span></div>
-                    </div>
-                  </div>
-                  <div className="visual-tile image-tile"></div>
-                  <div className="glass-panel small-panel">
-                    <i className="fa-solid fa-shield-halved"></i>
-                    <span>{home.device.security}</span>
-                  </div>
-                  <div className="glass-panel small-panel accent-panel">
-                    <HouseWifi size={20} strokeWidth={2} aria-hidden="true" />
-                    <span>{home.device.smartHome}</span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

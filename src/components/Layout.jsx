@@ -8,6 +8,17 @@ import { useLanguage } from "../i18n/LanguageContext.jsx";
 import socialLinks from "../data/socialLinks.js";
 
 const SHOW_ON_ROUTE_CHANGE = false;
+const NAV_ITEMS = [
+  { id: "home", to: "/", labelKey: "nav.home", showInNav: true },
+  { id: "services", to: "/services", labelKey: "nav.services", showInNav: true },
+  { id: "about", to: "/about", labelKey: "nav.about", showInNav: true },
+  { id: "industries", to: "/industries", labelKey: "nav.industries", showInNav: false },
+  { id: "process", to: "/process", labelKey: "nav.process", showInNav: false },
+  { id: "contact", to: "/contact", labelKey: "nav.contact", showInNav: true },
+  { id: "digital", to: "/#digital", labelKey: "nav.sectorDigital", showInNav: true },
+  { id: "software", to: "/#software", labelKey: "nav.sectorSoftware", showInNav: true },
+  { id: "smart-housing", to: "/#smart-housing", labelKey: "nav.sectorHousing", showInNav: true }
+];
 
 function Preloader() {
   const location = useLocation();
@@ -97,12 +108,13 @@ function Navbar() {
         </div>
         <div className="collapse navbar-collapse order-lg-2" id="mainNav">
           <ul className="navbar-nav ms-auto align-items-lg-center">
-            <li className="nav-item"><Link className={`nav-link${route === "/" ? " active" : ""}`} to="/" onClick={closeMenu}>{t("nav.home")}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${route === "/services" ? " active" : ""}`} to="/services" onClick={closeMenu}>{t("nav.services")}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${route === "/about" ? " active" : ""}`} to="/about" onClick={closeMenu}>{t("nav.about")}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${route === "/industries" ? " active" : ""}`} to="/industries" onClick={closeMenu}>{t("nav.industries")}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${route === "/process" ? " active" : ""}`} to="/process" onClick={closeMenu}>{t("nav.process")}</Link></li>
-            <li className="nav-item"><Link className={`nav-link${route === "/contact" ? " active" : ""}`} to="/contact" onClick={closeMenu}>{t("nav.contact")}</Link></li>
+            {NAV_ITEMS.filter(({ showInNav }) => showInNav).map(({ id, to, labelKey }) => {
+              const isActive = id === "digital" || id === "software" || id === "smart-housing"
+                ? route === "/" && location.hash === `#${id}`
+                : id === "home" ? route === to && !location.hash
+                : route === to;
+              return <li className="nav-item" key={id}><Link className={`nav-link${isActive ? " active" : ""}`} to={to} onClick={closeMenu}>{t(labelKey)}</Link></li>;
+            })}
             <li className="nav-item ms-lg-3"><Link className="btn btn-primary nav-cta" to={route === "/contact" ? "#contactForm" : "/contact"} onClick={closeMenu}>{t("nav.talk")}<ArrowUpRight size={18} className="ms-1" aria-hidden="true" /></Link></li>
           </ul>
         </div>
@@ -182,8 +194,8 @@ export default function Layout() {
   const previousLanguage = useRef(lang);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    if (!location.hash) window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const cleanup = initPageEffects(t);

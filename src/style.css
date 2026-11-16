@@ -335,46 +335,6 @@ h1, h2, h3 {
 
 .hero-copy { max-width: 640px; font-size: 1.13rem; }
 
-.hero-device {
-  position: relative;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
-  background:
-    linear-gradient(145deg, color-mix(in srgb, var(--text) 14%, transparent), color-mix(in srgb, var(--text) 4%, transparent)),
-    color-mix(in srgb, var(--text) 4%, transparent);
-  backdrop-filter: blur(22px);
-  box-shadow: var(--shadow);
-  transform: perspective(1100px) rotateY(-10deg) rotateX(6deg);
-}
-
-.device-toolbar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 0 14px;
-  color: var(--muted);
-}
-
-.device-toolbar span {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--primary);
-}
-
-.device-toolbar span:nth-child(2) { background: var(--secondary); }
-.device-toolbar span:nth-child(3) { background: color-mix(in srgb, var(--text) 60%, transparent); }
-.device-toolbar small { margin-left: auto; }
-
-.device-grid {
-  min-height: 520px;
-  display: grid;
-  grid-template-columns: 1.2fr .8fr;
-  grid-template-rows: 1fr 150px;
-  gap: 14px;
-}
-
 .glass-panel,
 .service-card,
 .deep-service-card,
@@ -390,39 +350,6 @@ h1, h2, h3 {
   backdrop-filter: blur(18px);
 }
 
-.large-panel { padding: 30px; display: flex; flex-direction: column; justify-content: flex-end; }
-.large-panel h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
-.mini-label { color: var(--accent-text); font-weight: 800; margin-bottom: 12px; }
-
-.metric-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-top: 28px;
-}
-
-.metric-row div {
-  padding: 16px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--text) 6%, transparent);
-}
-
-.metric-row strong { display: block; font-size: 2rem; color: var(--text); }
-.metric-row span { color: var(--muted); font-size: .85rem; }
-
-.visual-tile {
-  border-radius: 8px;
-  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--brand-navy) 35%, transparent)), url("https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=700&q=80") center/cover;
-}
-
-.small-panel {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px;
-}
-
-.small-panel i,
 .service-card i,
 .contact-info-card i {
   width: 48px;
@@ -433,11 +360,6 @@ h1, h2, h3 {
   color: var(--on-brand);
   background: linear-gradient(135deg, var(--primary), var(--accent));
   box-shadow: 0 14px 30px color-mix(in srgb, var(--primary) 28%, transparent);
-}
-
-.accent-panel {
-  color: var(--on-brand);
-  background: var(--gradient-brand);
 }
 
 .section-pad { padding: 110px 0; }
@@ -833,9 +755,6 @@ body.light-mode .faq-accordion .accordion-button::after { filter: none; }
   body.light-mode .navbar-collapse { background: color-mix(in srgb, var(--bg-soft) 96%, transparent); }
 
   .hero-section { padding-top: 130px; }
-  .hero-device { transform: none; }
-  .device-grid { min-height: auto; grid-template-columns: 1fr; grid-template-rows: auto; }
-  .visual-tile { min-height: 260px; }
   .cta-banner { align-items: flex-start; flex-direction: column; }
   .testimonial-carousel { padding: 34px 56px; }
 }
@@ -844,7 +763,6 @@ body.light-mode .faq-accordion .accordion-button::after { filter: none; }
   .section-pad { padding: 78px 0; }
   .page-hero { min-height: 50vh; padding: 130px 0 70px; }
   .display-3 { font-size: clamp(2.8rem, 14vw, 4.4rem); }
-  .metric-row,
   .process-grid { grid-template-columns: 1fr; }
   .stacked-visual img,
   .about-visual img { min-height: 330px; }

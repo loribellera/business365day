@@ -1,0 +1,133 @@
+.sx {
+  --sx-text: #f2efea;
+  --sx-muted: #a8a39b;
+  --sx-line: #2b2d32;
+  color: var(--sx-text);
+  font-family: inherit;
+}
+
+.sx[data-theme="light"] {
+  --sx-text: #14161a;
+  --sx-muted: #575b62;
+  --sx-line: #dedbd6;
+}
+
+.sx-block {
+  min-height: 100svh;
+  padding: var(--sx-top) 6vw 80px;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 5vw;
+  align-items: center;
+  justify-items: center;
+  border-bottom: 1px solid var(--sx-line);
+  scroll-margin-top: var(--sx-top);
+}
+
+.sx-logo,
+.sx-copy {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.sx-logo {
+  display: block;
+  width: min(34rem, 86vw);
+  max-width: 100%;
+  height: auto;
+}
+
+.sx-logo--inverted {
+  filter: brightness(0) saturate(100%);
+}
+
+.sx-copy {
+  width: 100%;
+  max-width: 30rem;
+  color: var(--sx-text);
+  font-family: inherit;
+  transition-delay: .25s;
+}
+
+.sx-block.is-in .sx-logo,
+.sx-block.is-in .sx-copy {
+  opacity: 1;
+  transform: none;
+}
+
+.sx-block--first .sx-logo,
+.sx-block--first .sx-copy {
+  transition-duration: 2.4s;
+}
+
+.sx-copy h2 {
+  margin: 0 0 14px;
+  color: var(--sx-text);
+  font-family: inherit;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 200;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.sx-copy p {
+  margin: 0 0 18px;
+  color: var(--sx-muted);
+  font-size: 17px;
+}
+
+.sx-copy ul {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--sx-line);
+  list-style: none;
+}
+
+.sx-copy li {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--sx-line);
+  color: var(--sx-text);
+  font-size: 16px;
+}
+
+.sx-block:nth-child(even) .sx-logo {
+  grid-column: 2;
+}
+
+.sx-block:nth-child(even) .sx-copy {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+@media (max-width: 760px) {
+  .sx-block {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 84px 24px 72px;
+  }
+
+  .sx-block .sx-logo,
+  .sx-block:nth-child(even) .sx-logo {
+    grid-column: 1;
+    grid-row: 1;
+    width: min(34rem, 86vw);
+  }
+
+  .sx-block .sx-copy,
+  .sx-block:nth-child(even) .sx-copy {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-logo,
+  .sx-copy,
+  .sx-block.is-in .sx-logo,
+  .sx-block.is-in .sx-copy {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

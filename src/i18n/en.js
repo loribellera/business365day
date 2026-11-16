@@ -6,6 +6,9 @@ export default {
     industries: "Industries",
     process: "Our Process",
     contact: "Contact",
+    sectorDigital: "Digital",
+    sectorSoftware: "Software",
+    sectorHousing: "Smart Housing",
     talk: "Let's Talk",
     primaryLabel: "Primary navigation",
     homeLabel: "Business365Days home",
@@ -13,7 +16,7 @@ export default {
     navigationToggle: "Toggle navigation"
   },
   footer: {
-    description: "Premium websites, apps, Smart Homes, AI Cameras, cybersecurity, and tech gadget solutions for ambitious businesses.",
+    description: "Premium websites, apps, Smart Housing, AI Cameras, cybersecurity, and tech gadget solutions for ambitious businesses.",
     pagesHeading: "Pages",
     servicesHeading: "Services",
     websiteDevelopment: "Website Development",
@@ -59,7 +62,7 @@ export default {
       description: "Business365Days builds premium websites, mobile apps, brand systems, website security solutions, and tech gadget experiences for ambitious businesses."
     },
     hero: {
-      eyebrow: "Digital products, security, and brand systems",
+      eyebrow: "Digital products, Software, and Smart Housing",
       heading: "Build a premium tech presence that works",
       words: ["365 days.", " everywhere.", " seamlessly.", " securely."],
       description: "Business365Days helps modern companies launch websites, apps, identities, protected platforms, and gadget driven experiences with the polish of a top-tier digital agency.",
@@ -75,7 +78,7 @@ export default {
       performance: "% Performance",
       support: "Day Support",
       security: "Security first builds",
-      smartHome: "Smart Home Integration"
+      smartHome: "Smart Housing"
     },
     services: {
       eyebrow: "What we do",
@@ -84,7 +87,7 @@ export default {
       cards: [
         { title: "Website Development", description: "Responsive business websites, landing pages, dashboards, and e-commerce interfaces built for trust." },
         { title: "Mobile Apps", description: "App concepts, prototypes, and production ready experiences for Android and iOS audiences." },
-        { title: "Smarthome Integration", description: "Smart home control for your connected systems, with apps, alerts and remote access that keep you in command from anywhere." },
+        { title: "Smart Housing", description: "Smart home control for your connected systems, with apps, alerts and remote access that keep you in command from anywhere." },
         { title: "Cybersecurity", description: "Website hardening, backups, monitoring, SSL, cleanup, and prevention for high-stakes online assets." },
         { title: "AI Cameras", description: "AI security camera surveillance with smart detection, real-time alerts and remote viewing for homes, offices and commercial properties." }
       ]
@@ -149,10 +152,10 @@ export default {
       { title: "Smart Technology & IoT", description: "Connected devices and intelligent access systems for modern spaces.", bullets: ["Smart monitoring and IoT systems", "Intelligent access control", "Connected environment solutions"] }
     ],
     smartBanner: {
-      label: "Smart Home & Intelligent Security",
+      label: "Smart Housing & Intelligent Security",
       heading: "Make your space smarter. Make access more secure.",
       paragraph: "Professional installation services for homes, offices and commercial properties, planned around your space, requirements and budget.",
-      tags: ["Smart home automation installation", "AI security camera surveillance", "Fingerprint sensor door locks", "Face detection access systems"],
+      tags: ["Smart Housing installation", "AI security camera surveillance", "Fingerprint sensor door locks", "Face detection access systems"],
       button: "Plan an installation"
     },
     process: {
@@ -236,7 +239,7 @@ export default {
       eyebrow: "Industries",
       heading: "Solutions shaped around your sector."
     },
-    items: ["Education", "Healthcare", "Financial services", "Retail & e-commerce", "Manufacturing", "Government", "Agriculture", "Hospitality", "Transportation", "Construction", "Energy", "NGOs & non-profits", "Small & medium businesses", "Large enterprises", "Smart home integration", "AI cameras"]
+    items: ["Education", "Healthcare", "Financial services", "Retail & e-commerce", "Manufacturing", "Government", "Agriculture", "Hospitality", "Transportation", "Construction", "Energy", "NGOs & non-profits", "Small & medium businesses", "Large enterprises", "Smart Housing", "AI cameras"]
   },
   process: {
     meta: {
@@ -290,7 +293,7 @@ export default {
       service: {
         label: "Service",
         placeholder: "Select a service",
-        options: ["Software / website", "AI and automation", "Cybersecurity / cloud", "Mobile application", "Smart home automation", "AI camera surveillance", "Fingerprint / face detection access", "Digital consulting", "Other"]
+        options: ["Software / website", "AI and automation", "Cybersecurity / cloud", "Mobile application", "Smart Housing", "AI camera surveillance", "Fingerprint / face detection access", "Digital consulting", "Other"]
       },
       budget: {
         label: "Budget range",

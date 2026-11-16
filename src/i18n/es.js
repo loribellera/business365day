@@ -6,6 +6,9 @@ export default {
     industries: "Sectores",
     process: "Proceso",
     contact: "Contacto",
+    sectorDigital: "Digital",
+    sectorSoftware: "Software",
+    sectorHousing: "Smart Housing",
     talk: "Hablemos",
     primaryLabel: "Navegación principal",
     homeLabel: "Inicio de Business365Days",
@@ -75,7 +78,7 @@ export default {
       performance: "% de rendimiento",
       support: "Días de soporte",
       security: "Seguridad desde el diseño",
-      smartHome: "Integración de hogar inteligente"
+      smartHome: "Smart Housing"
     },
     services: {
       eyebrow: "Lo que hacemos",
@@ -84,7 +87,7 @@ export default {
       cards: [
         { title: "Desarrollo web", description: "Sitios empresariales adaptables, páginas de aterrizaje, paneles y tiendas en línea diseñados para generar confianza." },
         { title: "Aplicaciones móviles", description: "Conceptos, prototipos y experiencias listas para producción en Android e iOS." },
-        { title: "Integración de hogar inteligente", description: "Controla tus sistemas conectados desde el hogar inteligente, con aplicaciones, alertas y acceso remoto para tener todo bajo control desde cualquier lugar." },
+        { title: "Smart Housing", description: "Controla tus sistemas conectados desde el hogar inteligente, con aplicaciones, alertas y acceso remoto para tener todo bajo control desde cualquier lugar." },
         { title: "Ciberseguridad", description: "Refuerzo web, copias de seguridad, supervisión, SSL, limpieza y prevención para activos digitales importantes." },
         { title: "Cámaras con IA", description: "Videovigilancia con cámaras de IA, detección inteligente, alertas en tiempo real y visualización remota para hogares, oficinas y espacios comerciales." }
       ]
@@ -149,10 +152,10 @@ export default {
       { title: "Tecnología inteligente e IoT", description: "Dispositivos conectados y sistemas de acceso inteligente para espacios modernos.", bullets: ["Sistemas inteligentes de monitoreo e IoT", "Control de acceso inteligente", "Soluciones para entornos conectados"] }
     ],
     smartBanner: {
-      label: "Hogar inteligente y seguridad inteligente",
+      label: "Smart Housing y seguridad inteligente",
       heading: "Haz tu espacio más inteligente y el acceso más seguro.",
       paragraph: "Instalación profesional para hogares, oficinas y espacios comerciales, planificada según tu espacio, necesidades y presupuesto.",
-      tags: ["Instalación de automatización del hogar", "Videovigilancia con cámaras de IA", "Cerraduras con sensor de huella", "Sistemas de acceso con reconocimiento facial"],
+      tags: ["Instalación Smart Housing", "Videovigilancia con cámaras de IA", "Cerraduras con sensor de huella", "Sistemas de acceso con reconocimiento facial"],
       button: "Planificar una instalación"
     },
     process: {
@@ -236,7 +239,7 @@ export default {
       eyebrow: "Sectores",
       heading: "Soluciones diseñadas para tu sector."
     },
-    items: ["Educación", "Salud", "Servicios financieros", "Comercio y tiendas en línea", "Manufactura", "Gobierno", "Agricultura", "Hostelería", "Transporte", "Construcción", "Energía", "ONG y organizaciones sin ánimo de lucro", "Pequeñas y medianas empresas", "Grandes empresas", "Integración de hogares inteligentes", "Cámaras con IA"]
+    items: ["Educación", "Salud", "Servicios financieros", "Comercio y tiendas en línea", "Manufactura", "Gobierno", "Agricultura", "Hostelería", "Transporte", "Construcción", "Energía", "ONG y organizaciones sin ánimo de lucro", "Pequeñas y medianas empresas", "Grandes empresas", "Smart Housing", "Cámaras con IA"]
   },
   process: {
     meta: {
@@ -290,7 +293,7 @@ export default {
       service: {
         label: "Servicio",
         placeholder: "Selecciona un servicio",
-        options: ["Software / sitio web", "IA y automatización", "Ciberseguridad / nube", "Aplicación móvil", "Automatización del hogar inteligente", "Vigilancia con cámaras de IA", "Acceso con huella / reconocimiento facial", "Consultoría digital", "Otro"]
+        options: ["Software / sitio web", "IA y automatización", "Ciberseguridad / nube", "Aplicación móvil", "Smart Housing", "Vigilancia con cámaras de IA", "Acceso con huella / reconocimiento facial", "Consultoría digital", "Otro"]
       },
       budget: {
         label: "Presupuesto",
